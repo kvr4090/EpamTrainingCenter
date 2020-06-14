@@ -1,8 +1,10 @@
 package by.epamtc.jwd.task_array.one_dimensional_array.task2;
+
 /*
  * Дана последовательность целых чисел  . Образовать новую последовательность,
  * выбросив из исходной те члены, которые равны min.
  */
+
 public class Solution {
 
     public int[] deleteMinValueSequence(int[] sequence) {
@@ -15,7 +17,6 @@ public class Solution {
                 counter++;
             }
         }
-
         return newSequence;
     }
 
@@ -25,7 +26,6 @@ public class Solution {
         for (int value : array) {
             minValue = Math.min(minValue, value);
         }
-
         return minValue;
     }
 }
