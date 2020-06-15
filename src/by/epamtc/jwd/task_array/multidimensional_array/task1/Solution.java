@@ -28,8 +28,6 @@ public class Solution {
     }
 
     public void toScreenMatrix() {
-        createMatrix();
-
         for (int[] line : createMatrix()) {
             for (int value : line) {
                 System.out.print(value + "\t");
