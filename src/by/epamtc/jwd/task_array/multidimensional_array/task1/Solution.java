@@ -12,7 +12,7 @@ public class Solution {
         this.matrixDimension = matrixDimension;
     }
 
-    private int[][] createMatrix() {
+    private int[][] createFillMatrix() {
         int[][] matrix = new int[matrixDimension][matrixDimension];
 
         for (int i = 0; i < matrixDimension; i++) {
@@ -28,7 +28,7 @@ public class Solution {
     }
 
     public void toScreenMatrix() {
-        for (int[] line : createMatrix()) {
+        for (int[] line : createFillMatrix()) {
             for (int value : line) {
                 System.out.print(value + "\t");
             }
