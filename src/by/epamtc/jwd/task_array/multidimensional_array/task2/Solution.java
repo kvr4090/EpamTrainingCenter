@@ -25,8 +25,6 @@ public class Solution {
     }
 
     public void toScreenMatrix() {
-        createMatrix();
-
         for (String[] line : createMatrix()) {
             for (String value : line) {
                 System.out.print(value + "\t\t");
