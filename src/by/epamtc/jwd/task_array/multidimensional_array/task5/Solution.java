@@ -9,11 +9,8 @@ public class Solution {
     private int[][] firstMatrix;
     private int[][] secondMatrix;
 
-    public void setFirstMatrix(int[][] firstMatrix) {
+    public Solution(int[][] firstMatrix, int[][] secondMatrix) {
         this.firstMatrix = firstMatrix;
-    }
-
-    public void setSecondMatrix(int[][] secondMatrix) {
         this.secondMatrix = secondMatrix;
     }
 
