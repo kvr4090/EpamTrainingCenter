@@ -37,7 +37,9 @@ public class Solution {
         for (int i = 0; i < password.length; i++) {
             if (password[i] != 0) {
                 if (indexValue1 == 10) {
+                    
                     indexValue1 = i;
+                    
                 } else {
                     indexValue2 = i;
                 }
@@ -63,6 +65,7 @@ public class Solution {
         for (int i = 0; i < 10; i++) {
             if (password[i] == 0) {
                 if (flag) {
+                    
                     password[i] = (int) Math.ceil((10d - value1) / 2);
                     flag = false;
 
