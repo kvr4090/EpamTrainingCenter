@@ -27,7 +27,7 @@ public class Solution {
 
             if (currentDevice.getProperty().get("name").trim().equals(nameDevice)) {
 
-                for (Map.Entry<String, String> current: currentDevice.getProperty().entrySet()) {
+                for (Map.Entry<String, String> current : currentDevice.getProperty().entrySet()) {
 
                     if (current.getKey().trim().equals(deviceProperty) && current.getValue().equals(propertyValue)) {
 
