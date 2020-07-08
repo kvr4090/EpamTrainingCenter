@@ -17,7 +17,7 @@ public class Device {
         property = new HashMap<>();
         property.put("name", properties[0]);
 
-        for (int i = 1; i < properties.length-1; i += 2) {
+        for (int i = 1; i < properties.length - 1; i += 2) {
             property.put(properties[i], properties[i + 1]);
         }
     }
