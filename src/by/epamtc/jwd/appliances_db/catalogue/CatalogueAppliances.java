@@ -31,7 +31,6 @@ public class CatalogueAppliances {
             while (line != null) {
                 catalogue.add(new Device(splitPropertiesDevice(line)));
                 line = reader.readLine();
-
             }
         } catch (FileNotFoundException e) {
             System.out.println("Указанный файл не найден!");
