@@ -7,20 +7,69 @@ package by.epamtc.jwd.task_array.one_dimensional_array.task3;
  * Напишите программу, которая разгадывает код замка при условии, что два кубика уже вставлены в ячейки
  */
 
+import java.util.Arrays;
+
 public class Solution {
 
-    private int[] password;
-    private int indexValue1;
-    private int indexValue2;
-    private int indexValue3;
-    private int value1;
-    private int value2;
+    private byte[] passwordBox;
+    private byte indexValue1;
+    private byte indexValue2;
+    private byte thirdIndex;
 
-    public Solution(int[] password) {
-        this.password = password;
+    public Solution(byte[] passwordBox) {
+        this.passwordBox = passwordBox;
     }
 
-    private boolean isValidIndex(int index1, int index2) {
+    public byte[] selectionPassword() {
+        fillIndexValue();
+
+        if (isCorrectCondition()) {
+            System.out.println(indexValue1);
+            System.out.println(indexValue2);
+            if (passwordBox[indexValue1] == passwordBox[indexValue2]) {
+                fillEmptyValue();
+            } else {
+                fillThirdIndex();
+                fillThirdValue();
+                settingValues(indexValue1);
+                settingValues(indexValue2);
+                settingValues(thirdIndex);
+            }
+        } else {
+            System.out.println("неверная последовательность, нельзя открыть сейф!");
+        }
+        return passwordBox;
+    }
+
+    private boolean isCorrectCondition() {
+        int sum = 0;
+
+        for (byte value : passwordBox) {
+            sum += value;
+        }
+        return (sum < 10) && isValidIndex(indexValue1, indexValue2);
+    }
+
+    private void fillIndexValue() {
+        indexValue1 = 10;
+
+        for (int i = 0; i < passwordBox.length; i++) {
+            if (passwordBox[i] != 0) {
+                if (indexValue1 == 10) {
+                    indexValue1 = (byte) i;
+                } else {
+                    indexValue2 = (byte) i;
+                }
+            }
+        }
+    }
+
+    private boolean isValidIndex(byte index1, byte index2) {
+        if (passwordBox[index1] == passwordBox[index2]) {
+
+            return true;
+        }
+
         for (int i = 0; i < 4; i++) {
 
             if (index1 == index2) {
@@ -31,139 +80,48 @@ public class Solution {
         return true;
     }
 
-    private void fillIndexValue() {
-        indexValue1 = 10;
+    private void settingValues(byte index) {
+        fillThirdValue();
 
-        for (int i = 0; i < password.length; i++) {
-            if (password[i] != 0) {
-                if (indexValue1 == 10) {
-                    
-                    indexValue1 = i;
-                    
-                } else {
-                    indexValue2 = i;
-                }
-            }
+        if (index == 1 || index == 4 || index == 7) {
+
+            passwordBox[1] = passwordBox[index];
+            passwordBox[4] = passwordBox[index];
+            passwordBox[7] = passwordBox[index];
+        }
+
+        if (index == 0 || index == 3 || index == 6 || index == 9) {
+
+            passwordBox[0] = passwordBox[index];
+            passwordBox[3] = passwordBox[index];
+            passwordBox[6] = passwordBox[index];
+            passwordBox[9] = passwordBox[index];
+        }
+
+        if (index == 2 || index == 5 || index == 8) {
+            passwordBox[2] = passwordBox[index];
+            passwordBox[5] = passwordBox[index];
+            passwordBox[8] = passwordBox[index];
         }
     }
 
-    private void setThirdIndex() {
+    private void fillThirdIndex() {
         for (int i = 0; i < 3; i++) {
-            if (isValidIndex(i, indexValue1) && isValidIndex(i, indexValue2)) {
-                indexValue3 = i;
+            if (isValidIndex((byte) i, indexValue1) && isValidIndex((byte) i, indexValue2)) {
+                thirdIndex = (byte) i;
             }
         }
     }
 
-    private void setThirdValue() {
-        password[indexValue3] = 10 - value1 - value2;
+    private void fillThirdValue() {
+        passwordBox[thirdIndex] = (byte) (10 - passwordBox[indexValue1] - passwordBox[indexValue2]);
     }
 
     private void fillEmptyValue() {
-        boolean flag = true;
-
         for (int i = 0; i < 10; i++) {
-            if (password[i] == 0) {
-                if (flag) {
-                    
-                    password[i] = (int) Math.ceil((10d - value1) / 2);
-                    flag = false;
-
-                } else {
-                    password[i] = (10 - value1) / 2;
-                    flag = true;
-                }
+            if (passwordBox[i] == 0) {
+                passwordBox[i] = (byte) ((10 - passwordBox[indexValue1]) / 2);
             }
         }
-    }
-
-    private void fillValues() {
-        value1 = password[indexValue1];
-        value2 = password[indexValue2];
-        int value3 = password[indexValue3];
-
-        if ((value1 == 0) && (value2 == 0)) {
-            value1 = (10 - value3) / 2;
-            value2 = (10 - value3) / 2;
-        }
-
-        if ((value2 == 0) && (value3 == 0)) {
-            value2 = (10 - value1) / 2;
-            value3 = (10 - value1) / 2;
-        }
-
-        if ((value1 == 0) && (value3 == 0)) {
-            value1 = (10 - value2) / 2;
-            value3 = (10 - value2) / 2;
-        }
-
-        password[indexValue1] = value1;
-        password[indexValue2] = value2;
-        password[indexValue3] = value3;
-    }
-
-    private void selectCombination(int index) {
-
-        if ((index == 1) || (index == 4) || (index == 7)) {
-
-            password[1] = password[index];
-            password[4] = password[index];
-            password[7] = password[index];
-        }
-
-        if ((index == 0) || (index == 3) || (index == 6) || (index == 9)) {
-
-            password[0] = password[index];
-            password[3] = password[index];
-            password[6] = password[index];
-            password[9] = password[index];
-        }
-
-        if ((index == 2) || (index == 5) || (index == 8)) {
-            password[2] = password[index];
-            password[5] = password[index];
-            password[8] = password[index];
-        }
-    }
-
-    private boolean isSumCorrect() {
-        int sum = 0;
-
-        for (int value : password) {
-            sum += value;
-        }
-        return sum < 10;
-    }
-
-    private int[] checkCombination() {
-        if (isSumCorrect()) {
-            
-            fillIndexValue();
-            fillValues();
-
-            if (isValidIndex(indexValue1, indexValue2)) {
-                
-                setThirdIndex();
-                setThirdValue();
-                
-                selectCombination(indexValue1);
-                selectCombination(indexValue2);
-                selectCombination(indexValue3);
-                
-            } else {
-                if (value1 == value2) {
-                    
-                    selectCombination(indexValue1);
-                    fillEmptyValue();
-                    
-                } else {
-                    System.out.print("неверная последовательность, нельзя открыть сейф!   ");
-                }
-            }
-        } else {
-            System.out.print("неверная последовательность, нельзя открыть сейф!   ");
-        }
-
-        return password;
     }
 }

@@ -5,7 +5,7 @@ package by.epamtc.jwd.task_array.multidimensional_array.task4;
  */
 
 public class Solution {
-  
+
     private int[] array;
 
     public Solution(int[] array) {
