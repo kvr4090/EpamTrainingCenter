@@ -1,0 +1,36 @@
+package by.epamtc.jwd.appliances_db.condition;
+
+import java.util.Map;
+
+public class DeviceCondition {
+    private String property;
+    private String propertyValue;
+    private Map<String, String> areaSeeking;
+
+    public DeviceCondition(String property, String propertyValue) {
+        this.property = property;
+        this.propertyValue = propertyValue;
+    }
+
+    public void setAreaSeeking(Map<String, String> areaSeeking) {
+        this.areaSeeking = areaSeeking;
+    }
+
+    public void setProperty(String property) {
+        this.property = property;
+    }
+
+    public void setPropertyValue(String propertyValue) {
+        this.propertyValue = propertyValue;
+    }
+
+    public boolean isCondition() {
+        for (Map.Entry<String, String> currentProperty : areaSeeking.entrySet()) {
+            if (currentProperty.getKey().equalsIgnoreCase(property) && currentProperty.getValue().equalsIgnoreCase(propertyValue)) {
+                return false;
+            }
+
+        }
+        return true;
+    }
+}
