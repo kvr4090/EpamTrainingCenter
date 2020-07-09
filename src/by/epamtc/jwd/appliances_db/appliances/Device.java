@@ -5,24 +5,24 @@ import java.util.Map;
 
 public class Device {
 
-    private Map<String, String> property;
-    private String[] properties;
+    private Map<String, String> properties;
+    private String[] ArrayProperties;
 
-    public Device(String[] properties) {
-        this.properties = properties;
+    public Device(String[] propertiesLine) {
+        this.ArrayProperties = propertiesLine;
         init();
     }
 
     private void init () {
-        property = new HashMap<>();
-        property.put("name", properties[0]);
+        properties = new HashMap<>();
+        properties.put("nameDevice", ArrayProperties[0]);
 
-        for (int i = 1; i < properties.length - 1; i += 2) {
-            property.put(properties[i], properties[i + 1]);
+        for (int i = 1; i < ArrayProperties.length - 1; i += 2) {
+            properties.put(ArrayProperties[i].trim(), ArrayProperties[i + 1].trim());
         }
     }
 
     public Map<String, String> getProperty() {
-        return property;
+        return properties;
     }
 }
