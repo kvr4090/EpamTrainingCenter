@@ -2,23 +2,21 @@ package by.epamtc.jwd.appliances_db.app;
 
 import by.epamtc.jwd.appliances_db.appliances.Device;
 import by.epamtc.jwd.appliances_db.condition.DeviceCondition;
+import by.epamtc.jwd.appliances_db.split.SplitDevice;
 
 import java.io.*;
 import java.util.*;
-import java.util.regex.Pattern;
 
 public class Solution {
 
     private String nameDevice;
-    private String deviceProperty;
-    private String propertyValue;
     private List<Device> selectDevice;
     private String filePath;
+    private DeviceCondition condition;
+    private SplitDevice splitDevice;
 
-    public Solution(String nameDevice, String deviceProperty, String propertyValue) {
+    public Solution(String nameDevice) {
         this.nameDevice = nameDevice;
-        this.deviceProperty = deviceProperty;
-        this.propertyValue = propertyValue;
         selectDevice = new ArrayList<>();
     }
 
@@ -26,9 +24,19 @@ public class Solution {
         this.filePath = filePath;
     }
 
-    public List<Device> runApp() {
+    public void setCondition(DeviceCondition condition) {
+        this.condition = condition;
+    }
 
-        DeviceCondition condition = new DeviceCondition(deviceProperty, propertyValue);
+    public void setNameDevice(String nameDevice) {
+        this.nameDevice = nameDevice;
+    }
+
+    public void setSplitDevice(SplitDevice splitDevice) {
+        this.splitDevice = splitDevice;
+    }
+
+    public List<Device> runApp() {
 
         try (FileReader fileReader = new FileReader(new File(filePath));
              BufferedReader reader = new BufferedReader(fileReader)) {
@@ -36,9 +44,9 @@ public class Solution {
 
             while (line != null) {
 
-                if (splitPropertiesDevice(line)[0].trim().equals(nameDevice)) {
+                if (splitDevice.ArraySplitLine()[0].trim().equals(nameDevice)) {
 
-                    Device currentDevice = new Device(splitPropertiesDevice(line));
+                    Device currentDevice = new Device(splitDevice.ArraySplitLine());
                     condition.setAreaSeeking(currentDevice.getProperty());
 
                     if (!condition.isCondition()) {
@@ -49,17 +57,10 @@ public class Solution {
                 line = reader.readLine();
 
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("Указанный файл не найден!");
-
-        } catch (IOException q) {
-            System.out.println(Arrays.toString(q.getStackTrace()));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        
         return  selectDevice;
-    }
-
-    private String[] splitPropertiesDevice(String line) {
-        Pattern pattern = Pattern.compile("[=:,]");
-        return pattern.split(line);
     }
 }
