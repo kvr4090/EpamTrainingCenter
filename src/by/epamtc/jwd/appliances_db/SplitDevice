@@ -1,0 +1,26 @@
+package by.epamtc.jwd.appliances_db.split;
+
+import java.util.regex.Pattern;
+
+public class SplitDevice {
+    private String conditionSplit;
+    private String lineSplit;
+
+    public SplitDevice(String conditionSplit, String lineSplit) {
+        this.conditionSplit = conditionSplit;
+        this.lineSplit = lineSplit;
+    }
+
+    public void setConditionSplit(String conditionSplit) {
+        this.conditionSplit = conditionSplit;
+    }
+
+    public void setLineSplit(String lineSplit) {
+        this.lineSplit = lineSplit;
+    }
+
+    public String[] ArraySplitLine() {
+        Pattern pattern = Pattern.compile(conditionSplit);
+        return pattern.split(lineSplit);
+    }
+}
